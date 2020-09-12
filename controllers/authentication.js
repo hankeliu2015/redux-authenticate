@@ -18,7 +18,7 @@ exports.signup = function(req, res, next) {
     // when user signup, if email exists, return error
     // 422 is unprocessible entity , send a respose with message.
     if(existingUser) {
-      return res.statue(422).send({error: 'email is in use'});
+      return res.status(422).send({error: 'email is in use'});
     }
     // when user sign up. email not exists, create and save user record
     const user = new User({email: email, password: password});
