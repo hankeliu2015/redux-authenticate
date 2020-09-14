@@ -2,8 +2,6 @@ const User = require('../models/user');
 const jwt = require('jwt-simple');
 const config = require('../config')
 
-// create a function, take user id and ecoded secret code
-
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
   return jwt.encode({sub: user.id, iat: timestamp}, config.secret);
