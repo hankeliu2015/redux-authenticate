@@ -23,6 +23,18 @@ userSchema.pre('save', function(next) {
   });
 });
 
+// add helper under userSchema
+// methods object here , for any user object created, it able to access to the functions we created.
+userSchema.methods.comparePassword = function(candidatePassword, callback) {
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    if (err) {
+      return callback(err);
+    }
+
+    callback(null, isMatch);
+  })
+}
+
 const ModelClass = mongoose.model('user', userSchema);
 
 module.exports = ModelClass;
