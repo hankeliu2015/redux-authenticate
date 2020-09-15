@@ -10,11 +10,10 @@ const userSchema = new Schema({
 // encrypt password
 
 userSchema.pre('save', function(next) {
-  const user = this;    // user is a instance of the user model.
+  const user = this;
 
   bcrypt.genSalt(10, function(err, salt) {
     if (err) { return next(err); }
-
     bcrypt.hash(user.password, salt, null, function(err, hash) {
       if (err) { return next(err);}
       user.password = hash;
@@ -23,14 +22,11 @@ userSchema.pre('save', function(next) {
   });
 });
 
-// add helper under userSchema
-// methods object here , for any user object created, it able to access to the functions we created.
 userSchema.methods.comparePassword = function(candidatePassword, callback) {
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
     if (err) {
       return callback(err);
     }
-
     callback(null, isMatch);
   })
 }
